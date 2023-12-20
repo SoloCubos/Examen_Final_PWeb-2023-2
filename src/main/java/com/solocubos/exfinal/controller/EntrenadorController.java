@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,18 @@ public class EntrenadorController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(entrenadorService.obtenerUuid(loginDTO.getEmail()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error 69, Por favor intente mas tarde: " + e + " .\"}");
         }
     }
+
+    @GetMapping(path = "entrenador/{uuid}/pokemons")
+    public ResponseEntity<?> obtenerPokemones(@PathVariable String uuid){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(entrenadorService.obtenerPokemones(uuid));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error 69, Por favor intente mas tarde: " + e + " .\"}");
+        }
+    }
+
+    
 }
