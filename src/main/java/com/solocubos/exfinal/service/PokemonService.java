@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.solocubos.exfinal.entity.Pokemon;
+import com.solocubos.exfinal.entity.TipoPokemon;
 import com.solocubos.exfinal.repository.PokemonRepository;
 import java.util.ArrayList;
 
@@ -15,11 +16,9 @@ public class PokemonService {
     @Autowired
     PokemonRepository pokemonRepository;
 
-    public List<Pokemon> obtenerPokemones() throws Exception{
-        List<Pokemon> pokemones = new ArrayList<>();
+    public Pokemon obtenerPorTipo(String tipo) throws Exception{
         try {
-            pokemones = pokemonRepository.findAll();
-            return pokemones;
+            return pokemonRepository.findByTipoPokemonUuid(tipo);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
